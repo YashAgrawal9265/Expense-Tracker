@@ -36,10 +36,8 @@ const App = () => {
       return [expense, ...prevExpenses];
     });
   };
- console.log(expenses);
   return (
     <div>
-      <h1>Lets get started</h1>
       <NewExpense onAddExpense={AddExpenseHandler} />
       <Expenses items={expenses} />
     </div>
