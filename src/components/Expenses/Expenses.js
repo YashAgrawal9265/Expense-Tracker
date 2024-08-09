@@ -4,15 +4,18 @@ import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
 import ExpensesList from "./ExpensesList";
 import ExpenseChart from "./ExpenseChart";
-const Expenses = (prop) => {
-  const [filteredYear, setFilteredYear] = useState("2020");
+
+const Expenses = (props) => {
+  const currentYear = new Date().getFullYear();
+  const [filteredYear, setFilteredYear] = useState(currentYear);
+
   const filterChangeHandler = (selectedYear) => {
-    setFilteredYear(selectedYear);
+    setFilteredYear(+selectedYear); // Ensure selectedYear is a number
   };
-  const filteredExpenses = prop.items.filter((expenses) => {
-    return expenses.date.getFullYear().toString() === filteredYear;
+
+  const filteredExpenses = props.items.filter((expense) => {
+    return expense.date.getFullYear() === filteredYear; // Compare with number
   });
- 
 
   return (
     <div>
@@ -21,8 +24,8 @@ const Expenses = (prop) => {
           selected={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
-        <ExpenseChart expense={filteredExpenses}/>
-        <ExpensesList items={filteredExpenses}/>
+        <ExpenseChart expense={filteredExpenses} />
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );
